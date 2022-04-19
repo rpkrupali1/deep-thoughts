@@ -23,6 +23,13 @@ const resolvers = {
         .populate("thoughts");
     },
 
+    user: async (parent, { username }) => {
+      return User.findOne({ username })
+        .select("-__v -password")
+        .populate("friends")
+        .populate("thoughts");
+    },
+
     // get a user by username
     me: async (parent, { username }, context) => {
       if (context.user) {
